@@ -1,0 +1,23 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e3c465"/>
+      <stop offset="1" stop-color="#a97f1c"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 4 C68 4 74 10 74 10 L90 10 C93 10 96 13 96 17 L96 55 C96 76 78 90 50 97 C22 90 4 76 4 55 L4 17 C4 13 7 10 10 10 L26 10 C26 10 32 4 50 4 Z"
+        fill="#0d1b32" stroke="url(#goldGrad)" stroke-width="3"/>
+  <path d="M50 9 C64 9 69 14 69 14 L87 14 C89 14 91 16 91 18 L91 55 C91 73 76 85 50 92 C24 85 9 73 9 55 L9 18 C9 16 11 14 13 14 L31 14 C31 14 36 9 50 9 Z"
+        fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.6"/>
+  <g transform="translate(50 40)">
+    <path d="M-24 6 L-19 -8 C-17.5 -12 -14 -14 -10 -14 L10 -14 C14 -14 17.5 -12 19 -8 L24 6"
+          fill="none" stroke="url(#goldGrad)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="-27" y="4" width="54" height="13" rx="6" fill="url(#goldGrad)"/>
+    <circle cx="-15" cy="19" r="4.2" fill="#0d1b32"/>
+    <circle cx="15" cy="19" r="4.2" fill="#0d1b32"/>
+  </g>
+  <circle cx="50" cy="68" r="11" fill="none" stroke="url(#goldGrad)" stroke-width="2.6"/>
+  <circle cx="50" cy="68" r="2.4" fill="url(#goldGrad)"/>
+  <path d="M50 59v4M50 73v4M41 68h4M55 68h4" stroke="url(#goldGrad)" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="50" y="88" text-anchor="middle" font-family="Tajawal, Arial" font-size="9" font-weight="800" fill="url(#goldGrad)" letter-spacing="1">1148</text>
+</svg>
