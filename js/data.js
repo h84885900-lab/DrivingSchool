@@ -4279,8 +4279,8 @@ const SIGNS_QUESTIONS = [
       "إنعطاف غير مباشر إلى اليسار",
       "إنعطاف"
     ],
-    correctAnswer: 1,
-    explanation: " تعني وجوب تخفيف السرعة فوراً و إنعطاف غير مباشر إلى اليسار"
+    correctAnswer: 0,
+    explanation: " تعني وجوب تخفيف السرعة فوراً "
   },
   {
     id: "sign-221",
