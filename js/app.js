@@ -30,6 +30,7 @@ const App = {
     this.el.mobileNav = document.getElementById("mobileNav");
     this.el.hamburger = document.getElementById("hamburgerBtn");
     this.el.header = document.querySelector(".site-header");
+    this.el.footer = document.querySelector(".site-footer");
   },
 
   bindGlobalEvents() {
@@ -66,6 +67,8 @@ const App = {
     this.state.view = "home";
     this.el.quizApp.classList.remove("active");
     this.el.homeSections.forEach((s) => (s.style.display = ""));
+    if (this.el.header) this.el.header.style.display = "";
+    if (this.el.footer) this.el.footer.style.display = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
   },
 
@@ -112,8 +115,18 @@ const App = {
     for (let i = 0; i < setCount; i++) {
       const start = i * setSize;
       const end = Math.min(start + setSize, total);
-      sets.push({ start, end, label: `الأسئلة ${start + 1} - ${end}` });
+      sets.push({ start, end });
     }
+    // Fold a small leftover final group (fewer than half a set) into the
+    // previous group instead of leaving it standing alone (e.g. "181-183").
+    if (sets.length > 1) {
+      const last = sets[sets.length - 1];
+      if (last.end - last.start < setSize / 2) {
+        sets[sets.length - 2].end = last.end;
+        sets.pop();
+      }
+    }
+    sets.forEach((s) => (s.label = `الأسئلة ${s.start + 1} - ${s.end}`));
 
     const setsHtml = sets
       .map(
@@ -124,6 +137,8 @@ const App = {
     this.el.homeSections.forEach((s) => (s.style.display = "none"));
     this.el.quizApp.classList.add("active");
     this.el.mobileNav?.classList.remove("open");
+    if (this.el.header) this.el.header.style.display = "none";
+    if (this.el.footer) this.el.footer.style.display = "none";
 
     this.el.quizApp.innerHTML = `
       <div class="container">
@@ -214,6 +229,8 @@ const App = {
     this.el.homeSections.forEach((s) => (s.style.display = "none"));
     this.el.quizApp.classList.add("active");
     this.el.mobileNav?.classList.remove("open");
+    if (this.el.header) this.el.header.style.display = "none";
+    if (this.el.footer) this.el.footer.style.display = "none";
     window.scrollTo({ top: 0, behavior: "smooth" });
     this.renderQuestion();
   },
