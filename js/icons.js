@@ -20,6 +20,7 @@ const ICONS = {
     <rect x="19" y="10" width="10" height="6" rx="1.5" stroke="#e3c465" stroke-width="2"/>
   </svg>`,
   check: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  star: `<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.5l2.9 6.31 6.6.63-4.98 4.51 1.46 6.55L12 16.9l-5.98 3.6 1.46-6.55L2.5 9.44l6.6-.63L12 2.5z"/></svg>`,
   cross: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>`,
   phone: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5c0-.6.4-1 1-1h3.2c.5 0 .9.3 1 .8l1 4a1 1 0 0 1-.3 1L7.6 11c1.1 2.5 3 4.4 5.5 5.5l1.2-1.3a1 1 0 0 1 1-.3l4 1c.5.1.8.5.8 1V20c0 .6-.4 1-1 1h-1.5C9.9 21 3 14.1 3 5.5V5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   whatsapp: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 6.7A7.6 7.6 0 0 0 6.2 16.9L5 20l3.2-1.2A7.6 7.6 0 1 0 17 6.7Z" stroke="currentColor" stroke-width="1.7"/><path d="M9.4 9.8c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.4l.6 1.4c.1.2 0 .4-.1.6l-.4.5c-.1.2-.1.4 0 .5.4.7 1.4 1.7 2.1 2.1.2.1.4.1.5 0l.5-.5c.2-.1.4-.2.6-.1l1.3.6c.3.2.3.4.3.6v.5c0 .3 0 .6-.5.8-.8.3-2 .3-3.6-.7-1.3-.8-2.6-2.1-3.4-3.4-1-1.6-1-2.8-.7-3.6Z" fill="currentColor"/></svg>`,
