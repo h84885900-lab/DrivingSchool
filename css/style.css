@@ -758,8 +758,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   padding: 22px 30px;
-  max-width: 480px;
-  margin: 0 auto 40px;
+  max-width: 100%;
+  width: fit-content;
+   margin: 0 auto 40px;
 }
 .reviews-summary-number {
   font-family: var(--font-display);
