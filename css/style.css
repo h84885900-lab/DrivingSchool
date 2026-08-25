@@ -58,7 +58,6 @@ html { scroll-behavior: smooth; }
 html, body {
   overflow-x: hidden;
   max-width: 100%;
-   overscroll-behavior-x: none;
 }
 
 
@@ -761,7 +760,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: 22px 30px;
   max-width: 100%;
   width: fit-content;
-   margin: 0 auto 40px;
+  margin: 0 auto 40px;
 }
 .reviews-summary-number {
   font-family: var(--font-display);
@@ -896,8 +895,25 @@ ul { margin: 0; padding: 0; list-style: none; }
   .landing-primary-actions { flex-direction: column; align-items: stretch; }
   .sets-grid { flex-direction: column; }
   .set-btn { width: 100%; }
-   .reviews-summary { flex-direction: column; text-align: center; padding: 22px; }
-.reviews-list { max-height: none; }
+  .reviews-summary {
+    flex-direction: column;
+    text-align: center;
+    padding: 22px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .reviews-grid,
+  .review-form,
+  .reviews-list {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .review-field input[type="text"],
+  .review-field textarea {
+    width: 100%;
+  }
+  .reviews-list { max-height: none; }
 }
 
 @media (max-width: 420px) {
@@ -910,7 +926,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   .hero-stat span { font-size: 0.78rem; }
 
   /* قسم التقييمات: تأكيد إنه كل عنصر يضل جوا عرض الشاشة */
-  .reviews-summary { padding: 18px; gap: 14px; }
+  .reviews-summary {
+    padding: 18px;
+    gap: 14px;
+    width: 100%;
+    max-width: 100%;
+  }
   .reviews-summary-number { font-size: 2.1rem; }
   .review-form { padding: 20px; }
   .star-picker { flex-wrap: wrap; }
