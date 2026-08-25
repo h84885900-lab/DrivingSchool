@@ -30,6 +30,7 @@
       <a href="#" data-start-category="signs">إشارات السير</a>
       <a href="#" data-start-category="public_vehicle">السيارة العمومية</a>
       <a href="#about">من نحن</a>
+      <a href="#reviews">آراء الطلاب</a>
       <a href="#contact">اتصل بنا</a>
     </nav>
 
@@ -129,6 +130,59 @@
     </div>
   </section>
 
+  <!-- ==============================  آراء الطلاب / التقييمات  ============================== -->
+<section class="reviews-section section-alt" id="reviews" data-home-section>
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">آراء طلابنا</span>
+      <h2>شو رأيك بالمدرسة؟</h2>
+      <p>قيّم تجربتك مع مدرسة حسام أبو علي لتعليم السواقة، وشارك طلاب آخرين رأيك.</p>
+    </div>
+
+    <div class="reviews-summary">
+      <div class="reviews-summary-number" id="reviewsAvgNumber">—</div>
+      <div class="reviews-summary-details">
+        <div class="reviews-summary-stars" id="reviewsAvgStars"></div>
+        <span class="reviews-summary-count" id="reviewsCount">جارٍ التحميل...</span>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      <form class="review-form" id="reviewForm">
+        <h3>أضف تقييمك</h3>
+
+        <label class="review-field">
+          <span>اسمك (اختياري)</span>
+          <input type="text" id="reviewerName" maxlength="60" placeholder="مثال: أحمد">
+        </label>
+
+        <div class="review-field">
+          <span>تقييمك</span>
+          <div class="star-picker" id="starPicker"></div>
+          <input type="hidden" id="ratingValue" value="0">
+        </div>
+
+        <label class="review-field">
+          <span>تعليقك</span>
+          <textarea id="reviewComment" maxlength="500" rows="4" placeholder="شاركنا تجربتك مع المدرسة..." required></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-gold">إرسال التقييم</button>
+        <p class="review-form-msg" id="reviewFormMsg"></p>
+
+        <button type="button" class="btn btn-outline-navy review-whatsapp-btn" id="reviewWhatsappBtn" hidden>
+          <span class="icon-badge" data-icon="whatsapp"></span>
+          أرسل نسخة عبر واتساب
+        </button>
+      </form>
+
+      <div class="reviews-list" id="reviewsList">
+        <p class="reviews-loading">جارٍ تحميل التقييمات...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
   <!-- ==============================  اتصل بنا  =============================== -->
   <section class="contact-section" id="contact" data-home-section>
     <div class="container">
@@ -194,6 +248,7 @@
         <ul>
           <li><a href="#" data-scroll-home>الرئيسية</a></li>
           <li><a href="#about">من نحن</a></li>
+          <li><a href="#reviews">آراء الطلاب</a></li>
           <li><a href="#contact">اتصل بنا</a></li>
         </ul>
       </div>
@@ -224,6 +279,7 @@
 <script src="js/icons.js"></script>
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
+<script type="module" src="js/reviews.js"></script>
 <script>
   // إحصاء مجموع الأسئلة تلقائياً للهيرو
   document.addEventListener("DOMContentLoaded", () => {
