@@ -204,7 +204,7 @@ const Reviews = {
       const reviews = snap.docs.map((d) => d.data());
 
       this.renderSummary(reviews);
-      this.renderList(reviews);
+      this.renderList(reviews.slice(0, 5));
     } catch (err) {
       console.error("Loading reviews failed:", err);
       this.el.list.innerHTML = `<p class="reviews-loading">تعذّر تحميل التقييمات حالياً. حاول تحديث الصفحة.</p>`;
