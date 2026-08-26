@@ -9,8 +9,7 @@ const EMAILJS_CONFIG = {
   publicKey: "4pRWboyG-14ESDZBd",
   serviceId: "service_rj09aem",
   templateId: "template_jxcnmmf",
-  ownerEmail: SITE_CONFIG.email, // الإيميل اللي بيوصله الإشعار (من data.js)
-};
+ownerEmail: "housamaboualidrivingschool@gmail.com",};
 
 // رقم واتساب المدرسة (بصيغة دولية بدون + أو رموز)، مأخوذ من data.js
 const SCHOOL_WHATSAPP_NUMBER = SITE_CONFIG.whatsappHref.replace("https://wa.me/", "");
