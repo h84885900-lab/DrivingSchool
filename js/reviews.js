@@ -198,7 +198,7 @@ const Reviews = {
       const reviews = snap.docs.map((d) => d.data());
 
       this.renderSummary(reviews); // المعدل والعدد الإجمالي يبقيان محسوبين من كل التقييمات
-      this.renderList(reviews.slice(0, 5)); // بس أحدث 5 تقييمات تظهر بالقائمة
+      this.renderList(reviews.slice(0, 4)); // بس أحدث 5 تقييمات تظهر بالقائمة
     } catch (err) {
       console.error("Loading reviews failed:", err);
       this.el.list.innerHTML = `<p class="reviews-loading">تعذّر تحميل التقييمات حالياً. حاول تحديث الصفحة.</p>`;
