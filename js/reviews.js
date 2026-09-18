@@ -1,15 +1,42 @@
 /* ==========================================================================
    نظام التقييمات بالنجوم — مدرسة حسام أبو علي لتعليم السواقة
-   لا يعرض التقييمات على الموقع أبداً — فقط يرسل إشعار إيميل تلقائي عبر
-   EmailJS، ويعرض زر واتساب اختياري لإرسال نسخة من التقييم مباشرة لرقم المدرسة.
+   يستخدم Firebase Firestore كقاعدة بيانات مجانية لتخزين تقييمات الزوار
+   وعرض أحدث 5 تقييمات على الموقع، مع معدل عام محسوب من كل التقييمات.
+   كما يرسل إشعار إيميل تلقائي عبر EmailJS، ويعرض زر واتساب اختياري
+   لإرسال نسخة من التقييم مباشرة إلى رقم المدرسة.
    ========================================================================== */
 
-// 🔧 عبّي هذا الكائن ببيانات حسابك على EmailJS (emailjs.com) — مجاني حتى 200 إيميل/شهر
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAdjrE_uaV1ERNTuZHgywNxyPe0cjlFiWw",
+  authDomain: "drivingschool-7ccb1.firebaseapp.com",
+  projectId: "drivingschool-7ccb1",
+  storageBucket: "drivingschool-7ccb1.firebasestorage.app",
+  messagingSenderId: "659422074943",
+  appId: "1:659422074943:web:38b0ffe93696875a0bc08a",
+};
+
 const EMAILJS_CONFIG = {
   publicKey: "4pRWboyG-14ESDZBd",
   serviceId: "service_rj09aem",
   templateId: "template_jxcnmmf",
-ownerEmail: "housamaboualidrivingschool@gmail.com",};
+  ownerEmail: "housamaboualidrivingschool@gmail.com", // الإيميل الحقيقي اللي بيوصله الإشعار
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const reviewsCol = collection(db, "reviews");
 
 // رقم واتساب المدرسة (بصيغة دولية بدون + أو رموز)، مأخوذ من data.js
 const SCHOOL_WHATSAPP_NUMBER = SITE_CONFIG.whatsappHref.replace("https://wa.me/", "");
@@ -23,6 +50,10 @@ const Reviews = {
     this.el.form = document.getElementById("reviewForm");
     if (!this.el.form) return; // القسم غير موجود في الصفحة، لا داعي للمتابعة
 
+    this.el.list = document.getElementById("reviewsList");
+    this.el.avgStars = document.getElementById("reviewsAvgStars");
+    this.el.avgNumber = document.getElementById("reviewsAvgNumber");
+    this.el.avgCount = document.getElementById("reviewsCount");
     this.el.starPicker = document.getElementById("starPicker");
     this.el.ratingInput = document.getElementById("ratingValue");
     this.el.formMsg = document.getElementById("reviewFormMsg");
@@ -39,6 +70,7 @@ const Reviews = {
     this.bindForm();
     this.bindWhatsappButton();
     this.loadEmailJs();
+    this.loadReviews();
   },
 
   /* -------------------------  منتقي النجوم داخل النموذج  ------------------- */
@@ -88,7 +120,6 @@ const Reviews = {
         comment: review.comment,
       });
     } catch (err) {
-      // ما منوقف عملية الإرسال الأساسية لو فشل الإيميل، بس منسجل الخطأ
       console.error("Email notification failed:", err);
     }
   },
@@ -132,6 +163,8 @@ const Reviews = {
       const review = { name: name.slice(0, 60), comment: comment.slice(0, 500), rating };
 
       try {
+        await addDoc(reviewsCol, { ...review, createdAt: serverTimestamp() });
+
         this.sendEmailNotification(review); // لا ننتظره، يعمل بالخلفية
 
         this.lastSubmission = review;
@@ -140,6 +173,7 @@ const Reviews = {
         this.showMsg("شكراً لك! تم إرسال تقييمك بنجاح ✓", "success");
         this.el.form.reset();
         this.setRating(0);
+        this.loadReviews();
       } catch (err) {
         console.error("Review submit failed:", err);
         this.showMsg("حدث خطأ أثناء إرسال التقييم. حاول مرة أخرى لاحقاً.", "error");
@@ -153,6 +187,68 @@ const Reviews = {
   showMsg(text, type) {
     this.el.formMsg.textContent = text;
     this.el.formMsg.className = `review-form-msg show ${type}`;
+  },
+
+  /* -----------------------------  تحميل وعرض التقييمات  --------------------- */
+  async loadReviews() {
+    this.el.list.innerHTML = `<p class="reviews-loading">جارٍ تحميل التقييمات...</p>`;
+    try {
+      const q = query(reviewsCol, orderBy("createdAt", "desc"), limit(50));
+      const snap = await getDocs(q);
+      const reviews = snap.docs.map((d) => d.data());
+
+      this.renderSummary(reviews); // المعدل والعدد الإجمالي يبقيان محسوبين من كل التقييمات
+      this.renderList(reviews.slice(0, 5)); // بس أحدث 5 تقييمات تظهر بالقائمة
+    } catch (err) {
+      console.error("Loading reviews failed:", err);
+      this.el.list.innerHTML = `<p class="reviews-loading">تعذّر تحميل التقييمات حالياً. حاول تحديث الصفحة.</p>`;
+    }
+  },
+
+  renderSummary(reviews) {
+    const count = reviews.length;
+    const avg = count ? reviews.reduce((s, r) => s + (r.rating || 0), 0) / count : 0;
+
+    this.el.avgNumber.textContent = count ? avg.toFixed(1) : "—";
+    this.el.avgCount.textContent = count
+      ? `بناءً على ${count} ${count === 1 ? "تقييم" : "تقييمات"}`
+      : "لا توجد تقييمات بعد — كن أول من يقيّم";
+    this.el.avgStars.innerHTML = this.starsHtml(Math.round(avg));
+  },
+
+  starsHtml(rating) {
+    let html = "";
+    for (let i = 1; i <= 5; i++) {
+      html += `<span class="star ${i <= rating ? "filled" : ""}">${ICONS.star}</span>`;
+    }
+    return html;
+  },
+
+  renderList(reviews) {
+    if (!reviews.length) {
+      this.el.list.innerHTML = `<p class="reviews-empty">لا توجد تقييمات بعد. شارك رأيك من النموذج المجاور!</p>`;
+      return;
+    }
+    this.el.list.innerHTML = reviews
+      .map((r) => {
+        const date = r.createdAt?.toDate ? r.createdAt.toDate().toLocaleDateString("ar-LB") : "";
+        return `
+        <div class="review-card">
+          <div class="review-card-head">
+            <strong>${this.escapeHtml(r.name || "زائر")}</strong>
+            <span class="review-card-stars">${this.starsHtml(r.rating || 0)}</span>
+          </div>
+          <p class="review-card-comment">${this.escapeHtml(r.comment || "")}</p>
+          ${date ? `<span class="review-card-date">${date}</span>` : ""}
+        </div>`;
+      })
+      .join("");
+  },
+
+  escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
   },
 };
 
