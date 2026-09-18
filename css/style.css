@@ -783,6 +783,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   gap: 40px;
   align-items: start;
 }
+.reviews-grid > * { min-width: 0; }
 
 .review-form {
   background: var(--white);
@@ -844,7 +845,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .review-whatsapp-btn .icon-badge svg { width: 100%; height: 100%; }
 .review-whatsapp-btn[hidden] { display: none; }
 
-.reviews-list { display: flex; flex-direction: column; gap: 14px; max-height: 560px; overflow-y: auto; padding-left: 4px; }
+.reviews-list { display: flex; flex-direction: column; gap: 14px; max-height: 560px; overflow-y: auto; overflow-x: hidden; padding-left: 4px; min-width: 0; }
 .reviews-loading, .reviews-empty {
   color: var(--ink-dim);
   text-align: center;
@@ -858,8 +859,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   padding: 16px 18px;
+  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
-.review-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.review-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
 .review-card-head strong { color: var(--navy-900); font-size: 0.98rem; }
 .review-card-comment { color: var(--ink-dim); font-size: 0.94rem; line-height: 1.6; margin: 0 0 8px; }
 .review-card-date { font-size: 0.78rem; color: var(--ink-dim); opacity: 0.75; }
@@ -914,5 +919,4 @@ ul { margin: 0; padding: 0; list-style: none; }
   .reviews-summary-number { font-size: 2.1rem; }
   .review-form { padding: 20px; }
   .star-picker { flex-wrap: wrap; }
-  .review-card-head { flex-wrap: wrap; }
 }
