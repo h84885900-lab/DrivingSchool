@@ -503,9 +503,15 @@ const App = {
           studentLine = `<p class="ra pending-line">لم تتم الإجابة عن هذا السؤال</p>`;
         }
 
+        const reviewSign =
+          cat.key === "signs"
+            ? `<div class="review-sign-wrap">${q.image ? `<img src="${q.image}" alt="إشارة سير" width="120" height="120" loading="lazy">` : (typeof signSVG === "function" && q.signType ? signSVG(q.signType) : "")}</div>`
+            : "";
+
         return `
         <div class="review-item ${itemClass}">
           <span class="review-tag ${tagClass}">${tagText}</span>
+          ${reviewSign}
           <p class="rq">${q.question}</p>
           ${studentLine}
           ${correctLine}
