@@ -920,3 +920,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   .review-form { padding: 20px; }
   .star-picker { flex-wrap: wrap; }
 }
+
+/* صورة الإشارة داخل مراجعة الإجابات */
+.review-sign-wrap {
+  width: 120px;
+  height: 120px;
+  margin: 10px auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.review-sign-wrap svg, .review-sign-wrap img { width: 100%; height: 100%; object-fit: contain; }
